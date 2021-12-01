@@ -319,6 +319,8 @@ public class DocumentActivity extends Activity
 			}
 		};
 		mDocView.setAdapter(new PageAdapter(this, core));
+		mDocView.setLinksEnabled(true);
+		mDocView.setHorizontalScrolling(false);
 
 		mSearchTask = new SearchTask(this, core) {
 			@Override

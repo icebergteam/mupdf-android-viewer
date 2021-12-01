@@ -42,7 +42,7 @@ public class ReaderView
 	private static final float MIN_SCALE        = 1.0f;
 	private static final float MAX_SCALE        = 64.0f;
 
-	private static final boolean HORIZONTAL_SCROLLING = true;
+	private boolean HORIZONTAL_SCROLLING = true;
 
 	private PageAdapter           mAdapter;
 	protected int               mCurrent;    // Adapter's index for the current view
@@ -66,6 +66,7 @@ public class ReaderView
 	private int               mScrollerLastY;
 	private float		  mLastScaleFocusX;
 	private float		  mLastScaleFocusY;
+	private int LINK_COLOR = 0x800066cc;
 
 	protected Stack<Integer> mHistory;
 
@@ -86,6 +87,18 @@ public class ReaderView
 	public ReaderView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		setup(context);
+	}
+
+	public boolean isHorizontalScrolling() {
+		return HORIZONTAL_SCROLLING;
+	}
+
+	public void setHorizontalScrolling(boolean horizontalScrolling) {
+		this.HORIZONTAL_SCROLLING = horizontalScrolling;
+	}
+
+	public void setLinkColor(int color) {
+		this.LINK_COLOR = color;
 	}
 
 	private void setup(Context context)
@@ -939,6 +952,7 @@ public class ReaderView
 		else
 			((PageView) v).setSearchBoxes(null);
 
+		((PageView) v).setLinkColor(this.LINK_COLOR);
 		((PageView) v).setLinkHighlighting(mLinksEnabled);
 	}
 

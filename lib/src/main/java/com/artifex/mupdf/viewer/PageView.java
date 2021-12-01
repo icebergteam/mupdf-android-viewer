@@ -33,12 +33,13 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.os.AsyncTask;
 
+import androidx.appcompat.widget.AppCompatImageView;
+
 // Make our ImageViews opaque to optimize redraw
-class OpaqueImageView extends ImageView {
+class OpaqueImageView extends AppCompatImageView {
 
 	public OpaqueImageView(Context context) {
 		super(context);
@@ -54,7 +55,7 @@ public class PageView extends ViewGroup {
 	private final MuPDFCore mCore;
 
 	private static final int HIGHLIGHT_COLOR = 0x80cc6600;
-	private static final int LINK_COLOR = 0x800066cc;
+	private int LINK_COLOR = 0x800066cc;
 	private static final int BOX_COLOR = 0xFF4444FF;
 	private static final int BACKGROUND_COLOR = 0xFFFFFFFF;
 	private static final int PROGRESS_DIALOG_DELAY = 200;
@@ -66,7 +67,7 @@ public class PageView extends ViewGroup {
 	protected     Point     mSize;   // Size of page at minimum zoom
 	protected     float     mSourceScale;
 
-	private       ImageView mEntire; // Image rendered at minimum zoom
+	private       AppCompatImageView mEntire; // Image rendered at minimum zoom
 	private       Bitmap    mEntireBm;
 	private       Matrix    mEntireMat;
 	private       AsyncTask<Void,Void,Link[]> mGetLinkInfo;
@@ -74,7 +75,7 @@ public class PageView extends ViewGroup {
 
 	private       Point     mPatchViewSize; // View size on the basis of which the patch was created
 	private       Rect      mPatchArea;
-	private       ImageView mPatch;
+	private       AppCompatImageView mPatch;
 	private       Bitmap    mPatchBm;
 	private       CancellableAsyncTask<Void,Void> mDrawPatch;
 	private       Quad      mSearchBoxes[];
@@ -95,6 +96,10 @@ public class PageView extends ViewGroup {
 		mEntireBm = Bitmap.createBitmap(parentSize.x, parentSize.y, Config.ARGB_8888);
 		mPatchBm = sharedHqBm;
 		mEntireMat = new Matrix();
+	}
+
+	public void setLinkColor(int color) {
+		this.LINK_COLOR = color;
 	}
 
 	private void reinit() {
@@ -188,7 +193,7 @@ public class PageView extends ViewGroup {
 		mPageNumber = page;
 		if (mEntire == null) {
 			mEntire = new OpaqueImageView(mContext);
-			mEntire.setScaleType(ImageView.ScaleType.MATRIX);
+			mEntire.setScaleType(AppCompatImageView.ScaleType.MATRIX);
 			addView(mEntire);
 		}
 
@@ -404,7 +409,7 @@ public class PageView extends ViewGroup {
 			// Create and add the image view if not already done
 			if (mPatch == null) {
 				mPatch = new OpaqueImageView(mContext);
-				mPatch.setScaleType(ImageView.ScaleType.MATRIX);
+				mPatch.setScaleType(AppCompatImageView.ScaleType.MATRIX);
 				addView(mPatch);
 				mSearchView.bringToFront();
 			}
