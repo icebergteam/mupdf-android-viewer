@@ -3,7 +3,7 @@ plugins {
 	id  'maven-publish'
 }
 
-def group = 'com.github.icebergteam'
+group = 'com.github.icebergteam'
 def artifactName =  'mupdf-android-viewer'
 def versionNAme = '1.19.1'
 
