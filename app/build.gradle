@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
-group = 'com.artifex.mupdf'
-version = '1.19.0'
+group = 'com.github.icebergteam'
+version = '1.19.1'
 
 dependencies {
 	implementation 'androidx.appcompat:appcompat:1.1.+'
